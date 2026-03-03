@@ -1,6 +1,23 @@
 """
-* Crea una clase `Estudiante` que tenga como atributos su `nombre` y una lista de `notas`.
-* La clase debe tener un método `calcular_promedio()` que retorne el promedio de sus notas.
+¿Para qué sirve este archivo?
+
+Define el DOMINIO PURO de nuestra aplicación, es decir las entidades del mundo representados en código.
+
+Principio (SRP) de los SOLID (Responsabilidad Única - Single Responsibility Principle)
+
+  Esta clase SOLO sabe sobre estudiantes
+
+     - Como se crean
+     - Como se validan sus notas
+     - Como se calculo su promedio
+
+    Que NO hace esta clase ( Y NO DEBERIA HACER JAMAS!)
+    - leer archivos .txt
+    - Imprimir reportes en pantalla
+    - Conectarse a una base de datos
+
+    Ventaja práctica:
+    - Si mañana hay un bug en el cálculo de promedio sabes exactamente donde ir: modelos.py Sin leer cientos y cientos de linea de código de otros archivos.
 """
 class Estudiante:
     pass
