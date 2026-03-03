@@ -20,12 +20,23 @@ Principio (SRP) de los SOLID (Responsabilidad Única - Single Responsibility Pri
     - Si mañana hay un bug en el cálculo de promedio sabes exactamente donde ir: modelos.py Sin leer cientos y cientos de linea de código de otros archivos.
 """
 from typing import List
+
+from excepciones import NotaInvalidaError
+
 class Estudiante:
     def __init__(self, nombre:str, notas:List[int]):
         self.nombre = nombre
         self.notas = notas
+        # Llamamos al validador INMEDIATAMENTE
+        self._validar_notas()
 
     def _validar_notas(self)-> None:
         ## AQUI voy a lanzar las excepciones personalizadas
         if len(self.notas) != 3:
-            pass
+            raise ValueError(f"El Alumno {self.nombre} no tiene exactamente 3 notas, tiene {len(self.notas)}")
+        for nota in self.notas:
+            if not (0 <= nota <= 100):
+                raise NotaInvalidaError(self.nombre, nota)
+    
+    def calcular_promedio(self)-> float:
+        return sum(self.notas) / len(self.notas)
