@@ -51,12 +51,3 @@ Deberán aplicar **Clean Code**, **POO**, **Gestión de Archivos** y **Manejo de
 
 * Genera un archivo `reporte_final.txt` en modo escritura (`'w'`).
 * Escribe en él solo a los estudiantes que fueron procesados exitosamente y cuyo promedio sea igual o mayor a 70.
-
----
-
-### 💡 Pistas del Mentor Senior para empezar:
-
-* **Responsabilidad Única (SOLID):** La clase `Estudiante` no debería saber cómo leer archivos. Su única responsabilidad es saber sobre sí mismo y sus notas. La clase `ProcesadorCalificaciones` es la que se ensucia las manos con los archivos.
-* **Separación de datos:** Cuando lean una línea del archivo (ej. `Carlos Santana,85,90,78`), usen el método `.split(',')` de los strings en Python para separar el nombre de las notas.
-* **Logs:** En lugar de solo usar `print()`, acumulen los errores en una lista dentro del Procesador para saber al final cuántos registros fallaron.
-  
