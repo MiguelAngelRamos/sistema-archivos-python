@@ -1,0 +1,4 @@
+Sofia Araya,85,90,78
+Ana Torres,100,A,95
+Luis Perez,105,80,90
+Maria Gomez,60,70
