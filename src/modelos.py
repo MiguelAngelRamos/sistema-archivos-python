@@ -19,5 +19,13 @@ Principio (SRP) de los SOLID (Responsabilidad Única - Single Responsibility Pri
     Ventaja práctica:
     - Si mañana hay un bug en el cálculo de promedio sabes exactamente donde ir: modelos.py Sin leer cientos y cientos de linea de código de otros archivos.
 """
+from typing import List
 class Estudiante:
-    pass
+    def __init__(self, nombre:str, notas:List[int]):
+        self.nombre = nombre
+        self.notas = notas
+
+    def _validar_notas(self)-> None:
+        ## AQUI voy a lanzar las excepciones personalizadas
+        if len(self.notas) != 3:
+            pass
