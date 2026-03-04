@@ -1,3 +1,6 @@
+"""
+Excepcion cuando tenemos una nota fuera de rango (0-100)
+"""
 class NotaInvalidaError(Exception):
     """Excepción personalizada para notas inválidas."""
     def __init__(self, nombre_alumno:str, nota: int):

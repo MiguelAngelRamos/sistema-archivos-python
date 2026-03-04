@@ -48,7 +48,28 @@ class ProcesadorCalificaciones:
     
     # Optional[Estudiante] el valor puede ser una instancia de Estudiante o None
     def _procesar_linea(self, linea: str, num_linea: int) -> Optional[Estudiante]:
-        
+        """
+        Parámetros: 
+            linea (str): Texto de una linea
+                         Ejemplo: "Sofia Araya,85,90,78"
+
+            num_linea (int): Número de linea del archivo.
+        """
         # "not linea" es True cuando la linea es "" (string vacio)
         if not linea:
+            return None
+        
+        partes = linea.split(',')
+        nombre = partes[0].strip() # con esto obtengo el nombre del alumno
+
+        try:
+           notas = [int(nota) for nota in partes[1:]] # con esto obtengo las notas del alumno
+           return Estudiante(nombre, notas)
+        except ValueError as e:
+            mensaje = (f"Linea {num_linea} [{nombre}]: {e}")
+            self.errores_log.append(mensaje)
+            return None
+        except NotaInvalidaError as e:
+            mensaje = (f"Linea {num_linea} [{nombre}]: {e}")
+            self.errores_log.append(mensaje)
             return None
