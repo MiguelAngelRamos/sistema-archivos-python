@@ -47,6 +47,7 @@ class ProcesadorCalificaciones:
 
                         if promedio >= 70:
                             estudiantes_aprobados.append((estudiante.nombre, promedio))
+            self._generar_reporte(estudiantes_aprobados)
 
         except FileNotFoundError:
             print(f"Error critico: El archivo '{self.ruta_entrada}' no existe", "Terminando proceso.")
