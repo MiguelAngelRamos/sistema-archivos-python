@@ -42,8 +42,14 @@ class ProcesadorCalificaciones:
                 for num_linea, linea in enumerate(archivo_in, start=1):
                     estudiante = self._procesar_linea(linea.strip(), num_linea)
 
+                    if estudiante:
+                        promedio = estudiante.calcular_promedio()
+
+                        if promedio >= 70:
+                            estudiantes_aprobados.append((estudiante.nombre, promedio))
+
         except FileNotFoundError:
-            print(f"Error critico: El archivo '{self.ruta_entrada}' no existe", f"Terminando proceso.")
+            print(f"Error critico: El archivo '{self.ruta_entrada}' no existe", "Terminando proceso.")
 
     
     # Optional[Estudiante] el valor puede ser una instancia de Estudiante o None
@@ -73,3 +79,23 @@ class ProcesadorCalificaciones:
             mensaje = (f"Linea {num_linea} [{nombre}]: {e}")
             self.errores_log.append(mensaje)
             return None
+
+    def _generar_reporte(self, estudiantes_aprobados: List[tuple]) -> None:
+        """
+        Genera un reporte de estudiantes aprobados y lo guarda en el archivo de salida.
+        """
+        try:
+            with open(self.ruta_salida, 'w', encoding='utf-8') as archivo_out:
+                archivo_out.write("=== REPORTE DE ALUMNOS APROBADOS ===\n")
+                for nombre, promedio in estudiantes_aprobados:
+                    archivo_out.write(f"Alumno: {nombre}, Promedio Final: {promedio:.1f}\n")
+                
+                archivo_out.write("\n=== ERRORES DETECTADOS DURANTE EL PROCESAMIENTO (LOGS)===\n")
+                if not self.errores_log:
+                    archivo_out.write("Procesamiento limpio. 0 errores encontrados.\n")
+                else:
+                    for error in self.errores_log:
+                        archivo_out.write(f"{error}\n")
+            print(f"Reporte generado exitosamente en '{self.ruta_salida}'")
+        except IOError as e:
+            print(f"Error al generar el reporte: {e}")
